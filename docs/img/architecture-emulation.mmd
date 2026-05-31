@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Intel Atom D525 (Host)"
+        KERNEL2[Linux 2.6.32 + RTAI]
+        OA2[OA.ko - Synth Engine]
+        EVA2[Eva - GUI Application]
+        NKS4MOD2[OmapNKS4Module.ko]
+        VIDMOD2[OmapVideoModule.ko]
+        AUDIODRV2[KorgUsbAudioDriver.ko]
+        COMPORT[COM Port - 16550 UART]
+    end
+
+    subgraph "ESP32-P4 (NKS4 Replacement)"
+        USBDEV[USB Composite Device]
+        UART[UART - Keybed Interface]
+        DISPLAY[8" LCD 1280×800]
+        TOUCHCTRL[Touch Controller]
+        I2S[I2S Audio]
+        CODEC[ES8388 DAC/ADC]
+        KEYSCAN[Key Scanner]
+    end
+
+    NKS4MOD2 <-->|"USB: Panel & Commands"| USBDEV
+    AUDIODRV2 <-->|"USB: Isochronous Audio"| USBDEV
+    COMPORT <-->|"UART: Keybed MIDI"| UART
+
+    USBDEV --> DISPLAY
+    TOUCHCTRL --> USBDEV
+    USBDEV --> I2S
+    I2S --> CODEC
+    UART --> KEYSCAN
+end

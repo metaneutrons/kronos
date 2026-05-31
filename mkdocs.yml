@@ -1,0 +1,77 @@
+site_name: Korg Kronos Hardware Emulation
+site_description: Complete NKS4 USB protocol specification & ESP32-P4 implementation guide
+site_author: metaneutrons
+site_url: https://metaneutrons.github.io/kronos/
+repo_url: https://github.com/metaneutrons/kronos
+repo_name: metaneutrons/kronos
+
+docs_dir: .site_src/docs
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+    - search.highlight
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - tables
+  - footnotes
+  - attr_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/metaneutrons
+
+nav:
+  - Home: index.md
+  - System Architecture: 01-architecture.md
+  - Emulation & QEMU: 02-emulation.md
+  - USB Composite Device: 03-usb-device.md
+  - Panel Protocol: 04-panel-protocol.md
+  - Video & Display: 05-video.md
+  - Input Events: 06-events.md
+  - Audio & Codec: 07-audio.md
+  - FIFO Interface: 08-fifo.md
+  - Kernel Modules: 09-modules.md
+  - Security & DRM: 10-security.md
+  - ESP32 Implementation: 11-esp32.md
+  - Appendix: 12-appendix.md

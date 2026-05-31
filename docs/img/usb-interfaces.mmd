@@ -1,0 +1,14 @@
+graph LR
+    subgraph "USB Device 0x0944:0x1005"
+        IF0["Interface 0<br/>Panel (Vendor-specific, SubClass=0xFF)<br/>OmapNKS4Module.ko"]
+        IF1["Interface 1<br/>Audio (Isochronous)<br/>KorgUsbAudioDriver.ko"]
+        IF2["Interface 2<br/>MIDI (Bulk)<br/>KorgUsbAudioDriver.ko"]
+    end
+
+    IF0 --- EP1["EP1 IN<br/>Interrupt<br/>32 bytes, 1ms"]
+    IF0 --- EP2["EP2 OUT<br/>Bulk<br/>512 bytes max"]
+    IF0 --- EP7["EP3 IN (Panel BULK)<br/>Bulk<br/>512 bytes max"]
+    IF1 --- EP3["EP4 OUT<br/>Isochronous<br/>Audio Output"]
+    IF1 --- EP4["EP5 IN<br/>Isochronous<br/>Audio Input"]
+    IF2 --- EP5["EP6 OUT<br/>Bulk<br/>MIDI Out"]
+    IF2 --- EP6["EP7 IN<br/>Bulk<br/>MIDI In"]

@@ -1,0 +1,19 @@
+# Local files (device-specific, build artifacts)
+local/
+
+# QEMU build output
+vendor/qemu/build/
+
+# Downloaded files
+downloads/
+
+# Generated documentation
+.site_src/
+site/
+
+# Editor
+*.swp
+*~
+.vscode/
+.idea/
+.venv/

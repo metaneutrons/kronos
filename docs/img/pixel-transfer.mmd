@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant Eva as Eva (Userspace)
+    participant Vid as OmapVideoModule
+    participant NKS4 as NKS4 Driver
+    participant USB as USB Bulk OUT
+    participant ESP as ESP32 Display
+
+    Eva->>Vid: ioctl(0x400c7207, {x, y, width})
+    Vid->>NKS4: OmapNKS4SendPixelDataRegion(x, y, width)
+    NKS4->>NKS4: Queue 0xC2 event in ring buffer
+
+    Note over NKS4: Video Message Processor thread
+
+    NKS4->>USB: 0xC2 header (12 bytes) — region definition
+    loop For each row
+        NKS4->>USB: 0xC6 data (512 bytes) — pixel bytes
+    end
+    NKS4->>USB: 0x83 end marker (4 bytes)
+
+    USB->>ESP: Receive + byte-swap + render

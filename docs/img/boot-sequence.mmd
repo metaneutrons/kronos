@@ -1,0 +1,32 @@
+sequenceDiagram
+    participant Host as Intel Atom (Host)
+    participant NKS4 as ESP32-P4 (NKS4)
+
+    Note over Host: Load RTAI modules
+    Note over Host: Load STGEnabler + STGGmp + nks4_shim
+    Note over Host: Load OmapNKS4Module.ko
+
+    Host->>NKS4: USB Enumeration (0x0944:0x1005)
+    NKS4-->>Host: Device Descriptor + Endpoints
+
+    Note over Host: OmapNKS4Probe fires
+
+    Host->>NKS4: CommunicationCheck (0xEE)
+    NKS4-->>Host: Response (0x0066)
+    Host->>NKS4: GetVersion (0xF0)
+    NKS4-->>Host: Response (0x0070) + version bytes
+    Host->>NKS4: ReadPortConfiguration (0xF1)
+    NKS4-->>Host: Response (0x0171) + hw config
+
+    Note over Host: Configure: SetAnalogInputs, Encoders, Scanning...
+    Note over Host: OmapNKS4Module init complete
+
+    Note over Host: Load OmapVideoModule.ko
+    Note over Host: Load KorgUsbAudioDriver.ko
+    Note over Host: Load OA.ko
+    Note over Host: Start Eva
+
+    Host->>NKS4: Pixel data (0xC2/0xC6 packets)
+    NKS4-->>Host: Touch/Encoder events (INT IN)
+    Host->>NKS4: Audio samples (ISOC OUT)
+    NKS4-->>Host: Audio input (ISOC IN)

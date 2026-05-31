@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant OA as OA.ko (Synth)
+    participant DRV as KorgUsbAudioDriver
+    participant USB as USB Isochronous
+    participant ESP as ESP32-P4
+    participant DAC as DAC/Speaker
+
+    Note over OA,DRV: Every 5.33 ms period (256 frames @ 48kHz)
+
+    OA->>DRV: KorgUsbAudioOutput() → returns DMA pointer
+    OA->>OA: Writes 4608 bytes to active DMA buffer
+    OA->>DRV: KorgUsbAudioOutputDone()
+    DRV->>USB: usb_submit_urb (Isochronous OUT)
+    USB->>ESP: Transmits 4608 bytes audio block
+    ESP->>DAC: Digital audio play (I2S DMA out)
+
+    ESP->>USB: Digital audio capture (I2S DMA in)
+    USB->>DRV: URB completion (Isochronous IN)
+    DRV->>OA: KorgUsbAudioInput() → returns DMA pointer
+    OA->>OA: Reads 4608 bytes input audio block

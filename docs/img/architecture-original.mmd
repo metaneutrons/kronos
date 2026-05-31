@@ -1,0 +1,42 @@
+graph TB
+    subgraph "Intel Atom (Host CPU)"
+        KERNEL[Linux 2.6.32 + RTAI]
+        OA[OA.ko - Synth Engine]
+        EVA[Eva - GUI Application]
+        NKS4MOD[OmapNKS4Module.ko]
+        VIDMOD[OmapVideoModule.ko]
+        AUDIODRV[KorgUsbAudioDriver.ko]
+    end
+
+    subgraph "NKS4 Board (OMAP + Peripherals)"
+        OMAP[TI OMAP CPU]
+        ATMEL[Atmel CryptoMemory]
+        NV2AC[NV2AC Audio Codec]
+        LCD[800×600 LCD]
+        TOUCH[Touch Panel]
+        PSOC[PSoC - Key Scanner]
+        KEYS[88-Key Keyboard]
+        ENCODERS[Encoders + Buttons]
+        DAC[DAC → Analog Out]
+        ADC[ADC ← Analog In]
+    end
+
+    KERNEL --> OA
+    KERNEL --> EVA
+    OA --> NKS4MOD
+    OA --> AUDIODRV
+    EVA --> VIDMOD
+    VIDMOD --> NKS4MOD
+
+    NKS4MOD <-->|"USB 2.0 Interface"| OMAP
+    AUDIODRV <-->|"USB Isochronous Audio"| OMAP
+    OA <-->|"16550 UART Interconnect"| PSOC
+
+    OMAP --> LCD
+    OMAP --> ATMEL
+    OMAP --> NV2AC
+    OMAP --> TOUCH
+    OMAP --> ENCODERS
+    PSOC --> KEYS
+    NV2AC --> DAC
+    ADC --> NV2AC

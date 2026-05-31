@@ -1,0 +1,23 @@
+flowchart TD
+    RX[Receive NKS4Command via INT IN] --> CHK{byte3 == 0x87?}
+    CHK -->|Yes| END[End of transfer]
+    CHK -->|No| TYPE{byte3 type?}
+    TYPE -->|0x00| T0[Touch & Button Handler]
+    TYPE -->|0x01| T1{byte2 & 0xF0?}
+    TYPE -->|0x03| T3[Analog Controller Dispatch]
+    TYPE -->|0x07| T7[SPDIF Clock Monitor]
+    TYPE -->|0x61| T61[SPDIF Sync Init]
+    TYPE -->|0x62| T62[SPDIF Sync Stream]
+    TYPE -->|0xE1| TE1[NV2AC Read Completion]
+
+    T1 -->|0x50| ENC[Rotary Encoder Decode]
+    T1 -->|0x71| RESP[SendNKS4EventToLinuxReader]
+    T1 -->|other| BTN[Button/Switch Matrix scan]
+
+    T0 --> SUB{byte2 & 0xF0?}
+    SUB -->|0x10| TOUCH[Touch Coordinate Decode]
+    SUB -->|0x30| TOUCH
+    SUB -->|0x40| TOUCH
+    SUB -->|0x66| RESP
+    SUB -->|0x70| RESP
+    SUB -->|0x80+| SCAN[System State Scan]
