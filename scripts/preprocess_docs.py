@@ -55,6 +55,10 @@ def preprocess(content: str, src_dir: Path) -> str:
         content
     )
 
+    # Convert pandoc mermaid fences to standard mermaid fences
+    # ```{.mermaid caption="..." #fig:...}  →  ```mermaid
+    content = re.sub(r'```\{\.mermaid[^}]*\}', '```mermaid', content)
+
     # Remove pandoc figure attributes: {#fig:label width=...}
     content = re.sub(r'\{#fig:[^}]+\}', '', content)
 
