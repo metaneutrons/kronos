@@ -2,7 +2,7 @@
 
 ---
 
-## Appendix A: `NKS4Command` Type Reference {#sec:appendix-types}
+## `NKS4Command` Type Reference {#sec:appendix-types}
 
 The following table specifies the complete command and event type mapping for `NKS4Command` frames:
 
@@ -27,7 +27,7 @@ The following table specifies the complete command and event type mapping for `N
 
 ---
 
-## Appendix B: Analysis Methodology & Systems Verification Challenges {#sec:appendix-re}
+## Analysis Methodology & Systems Verification Challenges {#sec:appendix-re}
 
 This section details the static and dynamic analysis methodologies, hypervisor real-time virtualization constraints, memory-relocation self-checks, and legacy compiler toolchain behaviors that characterize the verification of the Korg Kronos platform.
 
@@ -63,7 +63,7 @@ Re-compiling custom Host kernels and RTAI helper modules to match Korg's origina
 
 ---
 
-## Appendix C: System References {#sec:appendix-references}
+## System References {#sec:appendix-references}
 
 *   **Host Kernel**: Linux Kernel version 2.6.32.11 (with Korg real-time and MTRR patches).
 *   **Real-Time Kernel Extension**: Real-Time Application Interface (RTAI) version 3.8.1 (Korg GPL release).
@@ -74,7 +74,7 @@ Re-compiling custom Host kernels and RTAI helper modules to match Korg's origina
 
 ---
 
-## Appendix D: Recovery Media Integrity Verification {#sec:appendix-dvd-checksums}
+## Recovery Media Integrity Verification {#sec:appendix-dvd-checksums}
 
 All recovery media are available from Korg's public CDN. SHA-256 checksums are provided for integrity verification prior to image construction.
 
@@ -117,7 +117,7 @@ All recovery media are available from Korg's public CDN. SHA-256 checksums are p
 
 ---
 
-## Appendix E: Binary Module Integrity Checksums {#sec:appendix-binary-checksums}
+## Binary Module Integrity Checksums {#sec:appendix-binary-checksums}
 
 SHA-256 checksums of the unmodified (pre-patch) kernel modules extracted from decrypted filesystem images. These checksums identify the exact binary variant and determine the applicable patch specification.
 
@@ -141,7 +141,7 @@ SHA-256 checksums of the unmodified (pre-patch) kernel modules extracted from de
 
 ---
 
-## Appendix F: Binary Patch Specification {#sec:appendix-patches}
+## Binary Patch Specification {#sec:appendix-patches}
 
 > **Automated by:** [`scripts/build-disk.sh`](https://github.com/metaneutrons/kronos/blob/main/scripts/build-disk.sh)
 
