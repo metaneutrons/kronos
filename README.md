@@ -26,7 +26,7 @@ This project **replaces the NKS4 board** with an ESP32-P4 microcontroller, enabl
 - **Full USB protocol** reverse-engineered from binary kernel modules (no source code, no hardware captures)
 - **OA.ko synth engine** (14MB, real-time DSP) fully initializes in QEMU
 - **Keybed UART protocol** decoded — physical 16550 serial, not USB
-- **5 bytes patched** in QEMU (4 anti-tamper NOPs + 1 Atmel auth skip)
+- **5 patches** in QEMU (4 anti-tamper NOPs + 1 Atmel auth skip, 25 bytes total)
 - **Zero patches** required on real hardware with ESP32 providing Atmel credentials
 
 ## Quick Start
