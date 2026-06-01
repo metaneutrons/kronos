@@ -53,6 +53,9 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
 
+extra_css:
+  - stylesheets/numbered-headings.css
+
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 

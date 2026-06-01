@@ -96,6 +96,14 @@ def main():
             if f.suffix != '.mmd':  # Skip .mmd (inlined above)
                 (img_dest / f.name).write_bytes(f.read_bytes())
 
+    # Copy stylesheets/ directory
+    css_src = src_dir / "stylesheets"
+    css_dest = dest_dir / "stylesheets"
+    if css_src.exists():
+        css_dest.mkdir(parents=True, exist_ok=True)
+        for f in css_src.iterdir():
+            (css_dest / f.name).write_bytes(f.read_bytes())
+
     print(f"Preprocessed {len(list(dest_dir.glob('*.md')))} files → {dest_dir}")
 
 
