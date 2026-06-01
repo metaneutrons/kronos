@@ -108,7 +108,7 @@ sequenceDiagram
 
 ## Deterministic Software-in-the-Loop Simulation (QEMU Platform) {#sec:qemu-emulation}
 
-To facilitate deterministic, reproducible systems verification, a software-in-the-loop (SIL) testing environment is implemented using QEMU. The virtualized Host connects to an emulated NKS4 USB device (`hw/usb/dev-nks4.c`) and an emulated Super I/O keybed UART serial controller.
+To facilitate deterministic, reproducible systems verification, a software-in-the-loop (SIL) testing environment is implemented using QEMU. The virtualized Host connects to an emulated NKS4 USB device ([`src/qemu/kronos-nks4.c`](https://github.com/metaneutrons/kronos/blob/main/src/qemu/kronos-nks4.c)) and an emulated Super I/O keybed UART serial controller ([`src/qemu/kronos-keybed.c`](https://github.com/metaneutrons/kronos/blob/main/src/qemu/kronos-keybed.c)).
 
 ### Operational Divergences: QEMU vs. Physical Emulation Target {#sec:qemu-why}
 
@@ -118,7 +118,7 @@ The virtualized QEMU environment introduces key differences from the physical x8
 | :--- | :--- | :--- |
 | **`loadmod.ko` Integrity** | Requires 4 relocation NOP patches | Relocates cleanly (original binary unmodified) |
 | **`OA.ko` Authorization** | Requires 1-byte Atmel auth bypass | Operates unmodified (ESP32 emulates Atmel chip) |
-| **Keybed Serial Path** | Virtual Super I/O & UART device (`dev-keybed`) | Physical 16550 UART (D525 COM Port ↔ ESP32) |
+| **Keybed Serial Path** | Virtual Super I/O & UART ([`kronos-keybed.c`](https://github.com/metaneutrons/kronos/blob/main/src/qemu/kronos-keybed.c)) | Physical 16550 UART (D525 COM Port ↔ ESP32) |
 | **`orig_mem_size` Initialization** | Kernel parameter `memmap=0x80000000@0` | BIOS MTRR cleanup configures automatically |
 | **Filesystem Encryption** | Bypass via pre-decrypted loopback mount | Standard cryptoloop (ESP32 provides keys) |
 

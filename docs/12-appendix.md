@@ -143,6 +143,8 @@ SHA-256 checksums of the unmodified (pre-patch) kernel modules extracted from de
 
 ## Appendix F: Binary Patch Specification {#sec:appendix-patches}
 
+> **Automated by:** [`scripts/build-disk.sh`](https://github.com/metaneutrons/kronos/blob/main/scripts/build-disk.sh)
+
 The following patches are applied to `.init.text` sections of the respective modules. All patches are version-independent unless noted. The `kronos-keybed` QEMU device eliminates the need for the OA.ko keybed patch in virtualized environments.
 
 ### `loadmod.ko` — Anti-Tamper Bypass (4 Patches)

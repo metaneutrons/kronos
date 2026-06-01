@@ -240,6 +240,8 @@ The 24-character alphanumeric Public ID displayed on the system UI (e.g., `0313V
 
 ## Complete Coprocessor Verification Handshake Specification (10 Steps) {#sec:atmel-handshake-steps}
 
+> **Reference implementation:** [`src/qemu/kronos-nks4.c → handle_drm_read()`](https://github.com/metaneutrons/kronos/blob/main/src/qemu/kronos-nks4.c)
+
 During boot time, `loadmod.ko` challenges the coprocessor using a strict 10-step sequence. This table defines the exact commands, response sizes, expected values, and cryptographic outcomes representing the complete verification specification:
 
 | Step | Command (Bulk OUT) | Expected Response (Interrupt IN) | Subclass | Data Purpose & Outcome |
