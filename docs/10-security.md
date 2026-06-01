@@ -111,7 +111,7 @@ To prevent launching the synthesis engine if `loadmod.ko` is bypassed, the Host 
 
 `loadmod.ko` implements several closely coupled anti-analysis checks. A failure in any early verification phase corrupts the internal state of subsequent stages, causing a cascading failure that obfuscates the original source of the error.
 
-### 1. Relocated Memory Hash Self-Test (`aaaaaaaaa6`)
+### Relocated Memory Hash Self-Test (`aaaaaaaaa6`)
 
 When loaded, `loadmod.ko` hashes its relocated `.text` and `.data` memory spaces in RAM. The resulting 16-byte MD5 hash is compared against a reference table scattered across its `.data` segment:
 
@@ -122,7 +122,7 @@ Target Reference Offsets: [0x260, 0x19b, 0x22f, 0xd3, 0xec, 0x94, 0x25f, 0x113,
 
 Because this routine hashes the relocated binary image in RAM, the check is highly relocation-dependent. If the module is loaded at memory addresses that differ from the original physical Kronos memory mapping, the relocated offset bytes change the hash, causing the self-test to fail.
 
-### 2. Pseudo-Random Number Generator String Obfuscation
+### Pseudo-Random Number Generator String Obfuscation
 
 All system strings (including log messages, filesystem paths, and device names) are stored in the `.data` segment as obfuscated blocks. The driver decrypts these strings at runtime using a LCG PRNG located at `BSS+0x11e0`:
 
