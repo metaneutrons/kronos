@@ -21,8 +21,8 @@ UPDATE_URL="https://cdn.korg.com/us/support/download/files/59180c871025155934ae1
 UPDATE_SHA256="19d7b6bbb1ce3895377a576d2324d65c44a78aa0da556a9969af23d46afcf6fd"
 UPDATE_ZIP="downloads/KRONOS_Update_3_2_2.zip"
 
-DISK="qemu/patched/kronos.img"
-REAUTH="atmel/pairFact3.reauth"
+DISK="local/kronos.img"
+REAUTH="$(ls local/*.reauth 2>/dev/null | head -1)"
 
 # AES-256-CBC keys (identical across all Kronos versions)
 KEY_EVA="342ee59d549c7d329d835537be0540d"
@@ -53,7 +53,7 @@ echo "$UPDATE_SHA256  $UPDATE_ZIP" | sha256sum -c --quiet
 
 # --- Step 2: Extract system ---
 echo "[2/7] Extracting base system from DVD1 + 3.2.2 update..."
-TMPDIR=$(mktemp -d -p /home/fabian)
+TMPDIR=$(mktemp -d)
 trap "rm -rf $TMPDIR" EXIT
 
 7z e "$DVD1_FILE" -o"$TMPDIR" system.tar.gz -y >/dev/null 2>&1
@@ -61,7 +61,7 @@ unzip -o -j "$UPDATE_ZIP" "KRONOS_Update_3_2_2/KRONOS_Update_3_2_2.tar.gz" -d "$
 
 # --- Step 3: Create disk image ---
 echo "[3/7] Creating 60GB disk image..."
-mkdir -p qemu/patched
+mkdir -p local
 rm -f "$DISK"
 qemu-img create -f raw "$DISK" 60G >/dev/null
 sfdisk "$DISK" >/dev/null 2>&1 <<'PARTS'
@@ -99,8 +99,8 @@ if [ -d "$ROOT/mnt/sbin" ]; then
 fi
 
 # Extract kernel
-mkdir -p kernel
-cp "$ROOT/boot/bzImage" kernel/bzImage-korg 2>/dev/null || true
+mkdir -p local
+cp "$ROOT/boot/bzImage" local/bzImage-korg 2>/dev/null || true
 
 # --- Step 5: Decrypt filesystem images ---
 echo "[5/7] Decrypting filesystem images..."
@@ -133,17 +133,17 @@ with open('$TMPDIR/$img_name', 'wb') as f:
 done
 
 # Extract OA.ko from decrypted Mod.img
-mkdir -p qemu/firmware
+mkdir -p local/firmware
 MODMNT="$TMPDIR/mod_mount"
 sudo mkdir -p "$MODMNT"
 sudo mount -o loop,ro "$ROOT/korg/ro/Mod.img" "$MODMNT"
-cp "$MODMNT/OA.ko" qemu/firmware/
-cp "$MODMNT/KorgUsbAudioDriver.ko" qemu/firmware/
+cp "$MODMNT/OA.ko" local/firmware/
+cp "$MODMNT/KorgUsbAudioDriver.ko" local/firmware/
 sudo umount "$MODMNT"
 
 sudo mkdir -p "$ROOT/korg/Mod"
-sudo cp qemu/firmware/OA.ko "$ROOT/korg/Mod/"
-sudo cp qemu/firmware/KorgUsbAudioDriver.ko "$ROOT/korg/Mod/"
+sudo cp local/firmware/OA.ko "$ROOT/korg/Mod/"
+sudo cp local/firmware/KorgUsbAudioDriver.ko "$ROOT/korg/Mod/"
 
 # --- Step 6: Apply patches ---
 echo "[6/7] Applying patches..."
@@ -217,4 +217,4 @@ sudo rmdir "$ROOT"
 
 echo ""
 echo "=== Done: $DISK ==="
-echo "Run with: ./qemu/run.sh"
+echo "Run with: make run"
