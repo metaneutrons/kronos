@@ -78,6 +78,12 @@ Re-compiling custom Host kernels and RTAI helper modules to match Korg's origina
 
 All recovery media are available from Korg's public CDN. SHA-256 checksums are provided for integrity verification prior to image construction.
 
+### KRONOS System Version 3.2.2 (April 2026, Update Only)
+
+| File | Download URL | SHA-256 |
+| :--- | :--- | :--- |
+| Update ZIP (419 MB) | `https://cdn.korg.com/us/support/download/files/59180c871025155934ae1d5cb7e237bc.zip` | `19d7b6bbb1ce3895377a576d2324d65c44a78aa0da556a9969af23d46afcf6fd` |
+
 ### KRONOS System Version 3.2.1 (January 2026, Kernel Build #31)
 
 | File | Download URL | SHA-256 |
@@ -85,12 +91,6 @@ All recovery media are available from Korg's public CDN. SHA-256 checksums are p
 | DVD 1 (7.8 GB) | `https://storage.korg.com/kronos_dvd/KRONOS3/KronosDVD1_3_2_1.iso` | `b7550e50dd7b9b319864b283d5876f7ec5b895320f01fd89957806f0d69bb8bf` |
 | DVD 2 (7.7 GB) | `https://storage.korg.com/kronos_dvd/KRONOS3/KronosDVD2_3_2_1.iso` | `716582f7f3cd2ebabc8e7c529c5b8806af03977b81b172da4f9a4336a3438a4e` |
 | DVD 3 (6.7 GB) | `https://storage.korg.com/kronos_dvd/KRONOS3/KronosDVD3_3_2_1.iso` | `b03f87e92335f4938aaa7105e9a15ab233459b446a2c709d14758fdb0faacf58` |
-
-### KRONOS System Version 3.2.2 (April 2026, Update Only)
-
-| File | Download URL | SHA-256 |
-| :--- | :--- | :--- |
-| Update ZIP (419 MB) | `https://cdn.korg.com/us/support/download/files/59180c871025155934ae1d5cb7e237bc.zip` | `19d7b6bbb1ce3895377a576d2324d65c44a78aa0da556a9969af23d46afcf6fd` |
 
 ### KRONOS System Version 3.1.3 (September 2020, Kernel Build #26)
 
