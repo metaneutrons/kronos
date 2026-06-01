@@ -11,14 +11,14 @@ The **Korg Kronos** is a professional synthesizer workstation built around an In
 This project **replaces the NKS4 board** with an ESP32-P4 microcontroller, enabling the complete Kronos software stack to run on commodity x86 hardware (Intel Atom D525 mini-ITX) with no modifications to Korg's proprietary kernel modules.
 
 ```
-┌─────────────────────────┐         ┌─────────────────────────┐
-│   Intel Atom D525       │   USB   │      ESP32-P4           │
-│                         │◄───────►│                         │
+┌────────────────────────┐         ┌─────────────────────────┐
+│   Intel Atom D525      │   USB   │      ESP32-P4           │
+│                        │◄───────►│                         │
 │  Linux 2.6.32 + RTAI   │         │  USB: Panel/Audio/MIDI  │
 │  OA.ko (Synth Engine)  │   UART  │  UART: Keyboard         │
 │  Eva (GUI)             │◄───────►│  LCD + Touch + DAC      │
-│                         │         │  Key Scanner            │
-└─────────────────────────┘         └─────────────────────────┘
+│                        │         │  Key Scanner            │
+└────────────────────────┘         └─────────────────────────┘
 ```
 
 ### Key Achievements

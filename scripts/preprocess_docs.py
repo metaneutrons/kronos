@@ -58,6 +58,9 @@ def preprocess(content: str, src_dir: Path) -> str:
     # Remove pandoc figure attributes: {#fig:label width=...}
     content = re.sub(r'\{#fig:[^}]+\}', '', content)
 
+    # Remove PNG image references (Mermaid diagrams render natively in MkDocs)
+    content = re.sub(r'!\[[^\]]*\]\([^)]+\.png\)(?:\{[^}]*\})?', '', content)
+
     # Clean up double blank lines
     content = re.sub(r'\n{3,}', '\n\n', content)
 
