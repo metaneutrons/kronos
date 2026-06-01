@@ -18,7 +18,8 @@ qemu: $(QEMU_BIN)
 
 $(QEMU_BIN): $(QEMU_DIR)/hw/usb/kronos-nks4.c $(QEMU_DIR)/hw/isa/kronos-keybed.c
 	cd $(QEMU_DIR) && mkdir -p build && cd build && \
-		../configure --target-list=i386-softmmu --disable-docs --disable-gtk --disable-sdl && \
+		../configure --target-list=i386-softmmu --disable-docs --disable-gtk --disable-sdl \
+			$(if $(shell which ccache 2>/dev/null),--ccache) && \
 		ninja -C . qemu-system-i386
 
 $(QEMU_DIR)/hw/usb/kronos-nks4.c: src/qemu/kronos-nks4.c | $(QEMU_DIR)
