@@ -29,11 +29,13 @@ def preprocess(content: str, src_dir: Path) -> str:
     # Remove heading anchor attributes: ## Title {#sec:label}
     content = re.sub(r'\s*\{#sec:[^}]+\}', '', content)
 
-    # Convert cross-references: [@sec:label] → (see documentation)
+    # Convert cross-references: [@sec:label] → removed
     # or [text](ref) style — just remove the bracket reference
     content = re.sub(r'\[?@sec:[a-z0-9_-]+\]?', '', content)
-    # Also handle (see [@sec:...]) patterns
+    # Clean up dangling artifacts from removed references
     content = re.sub(r'\(see\s*\)', '', content)
+    content = re.sub(r'in , ', 'below, ', content)
+    content = re.sub(r'In , ', 'Below, ', content)
 
     # Inline .mmd diagram references:
     # ![caption](img/foo.mmd) → ```mermaid\n<content>\n```
