@@ -29,6 +29,16 @@ This project **replaces the NKS4 board** with an ESP32-P4 microcontroller, enabl
 - **5 patches** in QEMU (4 anti-tamper NOPs + 1 Atmel auth skip, 25 bytes total)
 - **Zero patches** required on real hardware with ESP32 providing Atmel credentials
 
+## Project Status & Roadmap
+
+- [x] **Full USB protocol** reverse-engineered (panel, audio, MIDI)
+- [x] **OA.ko synth engine** fully initialized in QEMU
+- [x] **Keybed UART protocol** decoded and emulated in QEMU
+- [x] **Complete reference documentation** (13 chapters)
+- [x] **Automated disk build** from Korg Recovery DVD (single `make disk`)
+- [ ] **ESP32-P4 firmware** implementation (WIP)
+- [ ] **Real hardware test** on Intel Atom D525
+
 ## Quick Start
 
 ```bash
