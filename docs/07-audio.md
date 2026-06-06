@@ -8,7 +8,7 @@ Audio streaming is managed by the Host driver `KorgUsbAudioDriver.ko`, which int
 
 ![Real-Time Audio Pipeline Topology](img/audio-dataflow.png){#fig:audio-dataflow}
 
-```{.mermaid caption="Inter-Processor Digital Audio Stream Sequence" #fig:audio-dataflow-src}
+```mermaid
 sequenceDiagram
     participant OA as OA.ko (Synth)
     participant DRV as KorgUsbAudioDriver

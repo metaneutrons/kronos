@@ -28,7 +28,7 @@ The composite device distributes its features across three interfaces. Different
 
 ![Composite USB Interface Topography](img/usb-interfaces.png){#fig:usb-interfaces}
 
-```{.mermaid caption="USB Composite Device Logical Interface Map" #fig:usb-interfaces-src}
+```mermaid
 graph LR
     subgraph "USB Device 0x0944:0x1005"
         IF0["Interface 0<br/>Panel (Vendor-specific, SubClass=0xFF)<br/>OmapNKS4Module.ko"]

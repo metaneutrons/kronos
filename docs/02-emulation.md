@@ -8,7 +8,7 @@ The physical and logical mapping of the emulation platform mirrors the original 
 
 ![Emulation Architecture Topology](img/architecture-emulation.png){#fig:arch-emulation}
 
-```{.mermaid caption="Emulation Platform Interconnect Topology" #fig:arch-emulation-src}
+```mermaid
 graph TB
     subgraph "Intel Atom D525 (Host)"
         KERNEL2[Linux 2.6.32 + RTAI]
@@ -23,14 +23,14 @@ graph TB
     subgraph "ESP32-P4 (NKS4 Replacement)"
         USBDEV[USB Composite Device]
         UART[UART - Keybed Interface]
-        DISPLAY[8" LCD 1280×800]
+        DISPLAY["8-inch LCD 1280×800"]
         TOUCHCTRL[Touch Controller]
         I2S[I2S Audio]
         CODEC[ES8388 DAC/ADC]
         KEYSCAN[Key Scanner]
     end
 
-    NKS4MOD2 <-->|"USB: Panel & Commands"| USBDEV
+    NKS4MOD2 <-->|"USB: Panel and Commands"| USBDEV
     AUDIODRV2 <-->|"USB: Isochronous Audio"| USBDEV
     COMPORT <-->|"UART: Keybed MIDI"| UART
 
@@ -39,7 +39,6 @@ graph TB
     USBDEV --> I2S
     I2S --> CODEC
     UART --> KEYSCAN
-end
 ```
 
 ## Software Driver Load Hierarchy {#sec:software-stack}
@@ -69,7 +68,7 @@ Initialization of the Host kernel modules triggers a deterministic USB and UART 
 
 ![Boot Inter-Processor Protocol Sequence](img/boot-sequence.png){#fig:boot-sequence}
 
-```{.mermaid caption="Inter-Processor Boot Sequence" #fig:boot-sequence-src}
+```mermaid
 sequenceDiagram
     participant Host as Intel Atom (Host)
     participant NKS4 as ESP32-P4 (NKS4)
@@ -108,7 +107,7 @@ sequenceDiagram
 
 ## Deterministic Software-in-the-Loop Simulation (QEMU Platform) {#sec:qemu-emulation}
 
-To facilitate deterministic, reproducible systems verification, a software-in-the-loop (SIL) testing environment is implemented using QEMU. The virtualized Host connects to an emulated NKS4 USB device ([`src/qemu/kronos-nks4.c`](https://github.com/metaneutrons/kronos/blob/main/src/qemu/kronos-nks4.c)) and an emulated Super I/O keybed UART serial controller ([`src/qemu/kronos-keybed.c`](https://github.com/metaneutrons/kronos/blob/main/src/qemu/kronos-keybed.c)).
+To facilitate deterministic, reproducible systems verification, a software-in-the-loop (SIL) testing environment is implemented using QEMU. The virtualized Host connects to an emulated NKS4 USB device (`hw/usb/dev-nks4.c`) and an emulated Super I/O keybed UART serial controller.
 
 ### Operational Divergences: QEMU vs. Physical Emulation Target {#sec:qemu-why}
 
@@ -118,7 +117,7 @@ The virtualized QEMU environment introduces key differences from the physical x8
 | :--- | :--- | :--- |
 | **`loadmod.ko` Integrity** | Requires 4 relocation NOP patches | Relocates cleanly (original binary unmodified) |
 | **`OA.ko` Authorization** | Requires 1-byte Atmel auth bypass | Operates unmodified (ESP32 emulates Atmel chip) |
-| **Keybed Serial Path** | Virtual Super I/O & UART ([`kronos-keybed.c`](https://github.com/metaneutrons/kronos/blob/main/src/qemu/kronos-keybed.c)) | Physical 16550 UART (D525 COM Port ↔ ESP32) |
+| **Keybed Serial Path** | Virtual Super I/O & UART device (`dev-keybed`) | Physical 16550 UART (D525 COM Port ↔ ESP32) |
 | **`orig_mem_size` Initialization** | Kernel parameter `memmap=0x80000000@0` | BIOS MTRR cleanup configures automatically |
 | **Filesystem Encryption** | Bypass via pre-decrypted loopback mount | Standard cryptoloop (ESP32 provides keys) |
 

@@ -8,12 +8,12 @@ When an Interrupt IN packet is received, the Host's `ReceiveEventBuffer` routine
 
 ![Event Dispatch Logic Flow](img/event-dispatch.png){#fig:event-dispatch}
 
-```{.mermaid caption="Host Event Dispatch Pipeline Architecture" #fig:event-dispatch-src}
+```mermaid
 flowchart TD
     RX[Receive NKS4Command via INT IN] --> CHK{byte3 == 0x87?}
     CHK -->|Yes| END[End of transfer]
     CHK -->|No| TYPE{byte3 type?}
-    TYPE -->|0x00| T0[Touch & Button Handler]
+    TYPE -->|0x00| T0[Touch and Button Handler]
     TYPE -->|0x01| T1{byte2 & 0xF0?}
     TYPE -->|0x03| T3[Analog Controller Dispatch]
     TYPE -->|0x07| T7[SPDIF Clock Monitor]

@@ -12,14 +12,14 @@ graph TB
     subgraph "ESP32-P4 (NKS4 Replacement)"
         USBDEV[USB Composite Device]
         UART[UART - Keybed Interface]
-        DISPLAY[8" LCD 1280×800]
+        DISPLAY["8-inch LCD 1280×800"]
         TOUCHCTRL[Touch Controller]
         I2S[I2S Audio]
         CODEC[ES8388 DAC/ADC]
         KEYSCAN[Key Scanner]
     end
 
-    NKS4MOD2 <-->|"USB: Panel & Commands"| USBDEV
+    NKS4MOD2 <-->|"USB: Panel and Commands"| USBDEV
     AUDIODRV2 <-->|"USB: Isochronous Audio"| USBDEV
     COMPORT <-->|"UART: Keybed MIDI"| UART
 
@@ -28,4 +28,3 @@ graph TB
     USBDEV --> I2S
     I2S --> CODEC
     UART --> KEYSCAN
-end

@@ -41,7 +41,7 @@ When userspace triggers a display region update via ioctl `0x400c7207`, the driv
 
 ![Pixel Sync Sequence](img/pixel-transfer.png){#fig:pixel-transfer}
 
-```{.mermaid caption="Three-Phase Display Synchronization Protocol" #fig:pixel-transfer-src}
+```mermaid
 sequenceDiagram
     participant Eva as Eva (Userspace)
     participant Vid as OmapVideoModule

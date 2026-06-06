@@ -9,7 +9,7 @@ The Korg Kronos workstation is structured as a heterogeneous dual-processor comp
 
 ![Hardware Architecture Block Diagram](img/architecture-original.png){#fig:arch-original}
 
-```{.mermaid caption="Host-Coprocessor System Interconnect Schema" #fig:arch-original-src}
+```mermaid
 graph TB
     subgraph "Intel Atom (Host CPU)"
         KERNEL[Linux 2.6.32 + RTAI]
@@ -18,6 +18,7 @@ graph TB
         NKS4MOD[OmapNKS4Module.ko]
         VIDMOD[OmapVideoModule.ko]
         AUDIODRV[KorgUsbAudioDriver.ko]
+        COMPORT[COM Port - 16550 UART]
     end
 
     subgraph "NKS4 Board (OMAP + Peripherals)"
@@ -26,11 +27,14 @@ graph TB
         NV2AC[NV2AC Audio Codec]
         LCD[800×600 LCD]
         TOUCH[Touch Panel]
-        PSOC[PSoC - Key Scanner]
-        KEYS[88-Key Keyboard]
         ENCODERS[Encoders + Buttons]
         DAC[DAC → Analog Out]
         ADC[ADC ← Analog In]
+    end
+
+    subgraph "Keybed Assembly"
+        PSOC[PSoC - Key Scanner]
+        KEYS[88-Key Keyboard]
     end
 
     KERNEL --> OA
@@ -39,10 +43,11 @@ graph TB
     OA --> AUDIODRV
     EVA --> VIDMOD
     VIDMOD --> NKS4MOD
+    OA <--> COMPORT
 
     NKS4MOD <-->|"USB 2.0 Interface"| OMAP
     AUDIODRV <-->|"USB Isochronous Audio"| OMAP
-    OA <-->|"16550 UART Interconnect"| PSOC
+    COMPORT <-->|"16550 UART Interconnect"| PSOC
 
     OMAP --> LCD
     OMAP --> ATMEL
